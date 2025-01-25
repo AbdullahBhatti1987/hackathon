@@ -1,8 +1,243 @@
-@import "tailwindcss";
+:root{
+  --bg-dark-full : #1e1e1e;
+  --bg-dark-half : #303030;
+  --bg-red-full : #f3184c;
+  --bg-light-full : #f6f6f6;
+  --bg-green-full : #28A745;
+  --bg-red-ful : #DC3545;
+  --bg-theme-dark : #445669;
+  --bg-blue-full: #1975d1;
+}
 
-#root {
-  max-width: 1920px;
-  margin: 0 auto;
-  padding: 2rem;
+.text-primary{
+color: var(--text-primary);
+}
+.bg-primary{
+background-color: var(--text-primary);
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Black overlay with 30% opacity */
+  z-index: 999; /* Ensure it's behind the modal */
+}
+
+.modalStyle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 40%;
+  border: 1px solid #1975d1;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(25, 117, 209, 0.2); /* Blue shadow with transparency */
+  transition: all 0.3s ease-in-out;
+  max-height: 100%;
+  overflow-y: auto;
+  z-index: 1000; /* Ensure it's on top of the overlay */
+}
+/* Add a subtle hover effect */
+.modalStyle:hover {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+}
+
+/* Optional: Add animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalStyle {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Modal Content */
+.modalContent {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.inputClass {
+margin-top: 0.25rem;
+padding-left: 1rem;
+padding-right: 1rem;
+padding-top: 0.5rem;
+padding-bottom: 0.5rem;
+width: 100%;
+border: 1px solid #B0BEC5;
+border-radius: 0.375rem;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inputClass:focus {
+outline: none;
+border-color: #388E3C;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inputClass:active {
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filterContainer {
+position: relative;
+z-index: 100;
+}
+
+.scrollbar-custom {
+overflow-y: auto;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+width: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: rgba(52, 144, 220, 1);
+
+border-radius: 10px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+background: rgba(0, 0, 0, 0.1);
+}
+
+.full-height-container {
+display: flex;
+flex-direction: column;
+height: 100vh;
+}
+
+.table-container {
+flex-grow: 1;
+overflow-y: auto;
+}
+
+.custom-header {
+background-color: #3490dc;
+}
+
+
+/* Transition Styles */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+button {
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
   text-align: center;
 }
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust width as needed */
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Light background color for the track */
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #007bff; /* Blue color */
+  border-radius: 10px; /* Round corners */
+}
+
+.loader {
+  width: 5%; /* Increased size */
+  aspect-ratio: 1;
+  display: grid;
+  border: 4px solid transparent;
+  border-radius: 50%;
+  border-right-color: #0b73b8;
+  animation: l15 1s infinite linear;
+  position: fixed; /* Keeps it fixed on the screen */
+  top: calc(50% - 2.5%); /* Center vertically */
+  left: calc(50% - 2.5%); /* Center horizontally */
+}
+
+.loader::before,
+.loader::after {    
+  content: "";
+  grid-area: 1/1;
+  margin: 2px;
+  border: inherit;
+  border-radius: 50%;
+  animation: l15 5s infinite;
+}
+
+.loader::after {
+  margin: 8px;
+  animation-duration: 1s;
+}
+
+@keyframes l15 { 
+  100% { transform: rotate(1turn) }
+}
+
+
+
+
+
+
