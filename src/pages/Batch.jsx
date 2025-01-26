@@ -14,7 +14,7 @@ import TextAreaWithLabel from "@/components/TextAreaWithLabel";
 import DateInputWithLabel from "@/components/DateInputWithLabel";
 import { fetchBatches, addBatch, deleteBatch, updateBatch } from "../api/Batch.jsx";
 import CustomLoader from "@/components/Loader";
-import { fetchClasses } from "@/api/Class";
+import { fetchClasses } from "@/api/Department";
 import { message } from "antd";
 
 const Batch = () => {

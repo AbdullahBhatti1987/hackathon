@@ -20,7 +20,7 @@ import { User } from "lucide-react";
 import { Route, Routes } from "react-router-dom";
 import City from "../pages/City";
 import { Typography } from "@mui/material";
-import Campus from "@/pages/Campus";
+import Campus from "@/pages/Branch";
 import Dashboard from "./Dashboard";
 import * as path from "path";
 import Batch from "@/pages/Batch";

@@ -64,7 +64,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export default function SignIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState([]);
+  const [employee, setEmployee] = useState([]);
   const [logOutTime, setLogOutTime] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -78,6 +78,7 @@ export default function SignIn(props) {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
+
 
   // useEffect(() => {
   //   const decodeToken = async () => {
@@ -118,32 +119,32 @@ export default function SignIn(props) {
     event.preventDefault();
 
     if (!emailError && !passwordError) {
-      const currentUser = { email, password };
+      const currentEmployee = { email, password };
       setIsLoading(true);
       axios
-        .post(AppRoutes.login, currentUser)
+        .post(AppRoutes.login, currentEmployee)
         .then((response) => {
-          const { token, user } = response?.data?.data;
+          const { token, employee } = response?.data?.data;
           {
             contextHolder;
           }
         
-          setUser(user);
+          setEmployee(employee);
 
           messageApi.success("Sign-in successful!");
 
           Cookies.set("token", token);
           const getToken = Cookies.get("token");
-          console.log("user=>", user)
+          console.log("Employee=>", employee)
           setTimeout(() => {
 
-            console.log("userRole", user.role[0])
-            if (user.role[0] === "admin") {
+            console.log("Employee-Role", employee.role)
+            if (employee.role === "admin") {
               navigate("/admin");
-            } else if (user.role[0] === "trainer") {
-              navigate("/trainer");
-            } else if (user.role[0] === "student") {
-              navigate("/student");
+            } else if (employee.role === "staff") {
+              navigate("/staff");
+            } else if (employee.role === "receptionist") {
+              navigate("/receptionist");
             } else {
               messageApi.success("You are not authorized to login this dashboard");
             }

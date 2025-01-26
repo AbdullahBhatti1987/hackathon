@@ -10,17 +10,17 @@ import CustomLoader from "@/components/Loader";
 import InputWithLabel from "@/components/InputWithLabel";
 import SelectWithLabel from "@/components/SelectWithLabel";
 import { fetchCities } from "@/api/City";
-import { addCampus, deleteCampus, fetchCampuses, updateCampus } from "@/api/Campus";
+import { addBranch, deleteBranch, fetchBranches, updateBranch } from "@/api/Branch";
 import { message } from "antd";
 
-const Campus = () => {
+const Branch = () => {
   const [cities, setCities] = useState([]);
-  const [campuses, setCampuses] = useState([]);
+  const [branches, setBranches] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
-    const [messageApi, contextHolder] = message.useMessage();
-  const [campusDetails, setCampusDetails] = useState({
+  const [messageApi, contextHolder] = message.useMessage();
+  const [branchDetails, setBranchDetails] = useState({
     title: "",
     address: "",
     contact: "",
@@ -32,14 +32,14 @@ const Campus = () => {
     setIsLoading(true);
     setTimeout(() => {
       fetchCities(setCities);
-      fetchCampuses(setCampuses);
+      fetchBranches(setBranches);
       setIsLoading(false);
     }, 1000);
   }, []);
 
 
   const resetForm = () => {
-    setCampusDetails({
+    setBranchDetails({
       title: "",
       address: "",
       contact: "",
@@ -51,53 +51,53 @@ const Campus = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log("==>",value)
-    setCampusDetails({
-      ...campusDetails,
+    console.log("==>", value);
+    setBranchDetails({
+      ...branchDetails,
       [name]: value,
     });
   };
 
-  // ======================Add Campus=====================
-  const handleAddCampus = async (e) => {
+  // ======================Add Branch=====================
+  const handleAddBranch = async (e) => {
     setIsLoading(true);
     e.preventDefault();
     setEditingIndex(null);
     try {
-      await addCampus(campusDetails, setCampuses);
-      fetchCampuses(setCampuses);
+      await addBranch(branchDetails, setBranches);
+      fetchBranches(setBranches);
       resetForm();
       setIsModalOpen(false);
       setIsLoading(false);
     } catch (error) {
-      console.error("Error adding campus: ", error);
+      console.error("Error adding branch: ", error);
     }
   };
 
-  // ======================Update Campus=====================
-  const handleEditCampus = (campus) => {
-    setEditingIndex(campus._id);
+  // ======================Update Branch=====================
+  const handleEditBranch = (branch) => {
+    setEditingIndex(branch._id);
 
-    setCampusDetails({
-      title: campus.title,
-      address: campus.address,
-      contact: campus.contact,
-      email: campus.email,
-      city: campus.city._id,
+    setBranchDetails({
+      title: branch.title,
+      address: branch.address,
+      contact: branch.contact,
+      email: branch.email,
+      city: branch.city._id,
     });
     setIsModalOpen(true);
   };
 
-  const handleUpdateCampus = async (e) => {
+  const handleUpdateBranch = async (e) => {
     e.preventDefault();
-    await updateCampus(campusDetails, editingIndex);
-    fetchCampuses(setCampuses);
+    await updateBranch(branchDetails, editingIndex);
+    fetchBranches(setBranches);
     resetForm();
     setIsModalOpen(false);
   };
 
-  const handleDeleteCampus = async (campus) => {
-    await deleteCampus(campus, setCampuses);
+  const handleDeleteBranch = async (branch) => {
+    await deleteBranch(branch, setBranches);
   };
 
   const handleDownload = (format) => {
@@ -106,66 +106,65 @@ const Campus = () => {
 
   return (
     <div className="">
-      {/* <Heading1 text={"Campus Management"} /> */}
       {contextHolder}
       <div className="mx-auto w-full">
-        <Filter data={campuses} onDownload={handleDownload} onFilter={""} />
+        <Filter data={branches} onDownload={handleDownload} onFilter={""} />
       </div>
 
       <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className={"modalStyle"}>
-        <ModalHeading text={editingIndex !== null ? "Update Campus" : "Add Campus"} />
+        <ModalHeading text={editingIndex !== null ? "Update Branch" : "Add Branch"} />
 
         <form
           onSubmit={(e) => {
-            editingIndex !== null ? handleUpdateCampus(e) : handleAddCampus(e);
+            editingIndex !== null ? handleUpdateBranch(e) : handleAddBranch(e);
           }}
         >
           <InputWithLabel
-            label="Campus Name"
-            id="campus-title"
+            label="Branch Name"
+            id="branch-title"
             name="title"
-            value={campusDetails.title}
+            value={branchDetails.title}
             onChange={handleInputChange}
-            placeholder="Enter campus name"
+            placeholder="Enter branch name"
           />
 
           <InputWithLabel
-            label="Campus Location"
-            id="campus-address"
+            label="Branch Location"
+            id="branch-address"
             name="address"
-            value={campusDetails.address}
+            value={branchDetails.address}
             onChange={handleInputChange}
-            placeholder="Enter campus location"
+            placeholder="Enter branch location"
           />
 
           <SelectWithLabel
-            label="Campus City"
-            id="campus-city"
+            label="Branch City"
+            id="branch-city"
             name="city"
-            value={campusDetails.city}
+            value={branchDetails.city}
             onChange={handleInputChange}
             options={cities}
-            placeholder="Select Campus City"
+            placeholder="Select Branch City"
             saveItem={"_id"}
             view={"city"}
           />
 
           <InputWithLabel
-            label="Campus Contact"
-            id="campus-contact"
+            label="Branch Contact"
+            id="branch-contact"
             name="contact"
-            value={campusDetails.contact}
+            value={branchDetails.contact}
             onChange={handleInputChange}
-            placeholder="Enter campus contact number"
+            placeholder="Enter branch contact number"
           />
 
           <InputWithLabel
-            label="Campus Email"
-            id="campus-email"
+            label="Branch Email"
+            id="branch-email"
             name="email"
-            value={campusDetails.email}
+            value={branchDetails.email}
             onChange={handleInputChange}
-            placeholder="Enter campus email"
+            placeholder="Enter branch email"
             type="email"
           />
 
@@ -173,8 +172,8 @@ const Campus = () => {
           <div className="flex justify-center items-center gap-3 w-full">
             <ButtonM
               type="submit"
-              text={editingIndex !== null ? "Update Campus" : "Add Campus"}
-              onClick={editingIndex !== null ? handleUpdateCampus : handleAddCampus}
+              text={editingIndex !== null ? "Update Branch" : "Add Branch"}
+              onClick={editingIndex !== null ? handleUpdateBranch : handleAddBranch}
               className={"w-1/2"}
               disabled={isLoading}
             />
@@ -185,25 +184,21 @@ const Campus = () => {
 
       <div className="mt-8 flex flex-col h-[calc(100vh-220px)]">
         <div className="flex justify-end items-center mb-4">
-          {/* <h2 className="text-2xl font-semibold">Campuses List</h2> */}
           <ButtonM
-            text={"Add Campus"}
+            text={"Add Branch"}
             onClick={() => {
               setEditingIndex(null);
               resetForm();
               setIsModalOpen(true);
             }}
-           
             className={"w-[12%]"}
           />
         </div>
         {isLoading ? (
-          
-            <div className="loader"></div> 
-        
-        ) : campuses.length === 0 ? (
+          <div className="loader"></div>
+        ) : branches.length === 0 ? (
           <div className="flex justify-center items-center h-full text-gray-500">
-            No campuses available in the database.
+            No branches available in the database.
           </div>
         ) : (
           <div className="scrollbar-custom" style={{ maxHeight: `calc(100vh - 240px)` }}>
@@ -221,30 +216,30 @@ const Campus = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {campuses?.map((campus, index) => (
-                    <tr key={campus?._id} className={`border border-gray-200 ${index % 2 === 0 ? "bg-blue-100" : ""}`}>
+                  {branches?.map((branch, index) => (
+                    <tr key={branch?._id} className={`border border-gray-200 ${index % 2 === 0 ? "bg-blue-100" : ""}`}>
                       <td className="py-2 px-4 border border-gray-200 text-center w-1/12 text-sm">{index + 1}</td>
                       <td className="py-2 px-4 border border-gray-200 w-1/12 truncate capitalize text-sm">
-                        {campus.title}
+                        {branch.title}
                       </td>
                       <td
                         className="py-2 px-4 border border-gray-200 w-3/12 truncate capitalize text-sm"
-                        title={campus.address}
+                        title={branch.address}
                       >
-                        {campus.address?.length > 50 ? `${campus.address.substring(0, 50)}...` : campus.address}
+                        {branch.address?.length > 50 ? `${branch.address.substring(0, 50)}...` : branch.address}
                       </td>
                       <td className="py-2 px-4 border border-gray-200 w-1/12 truncate capitalize text-sm">
-                        {campus?.city?.city}
+                        {branch?.city?.city}
                       </td>
 
-                      <td className="py-2 px-4 border border-gray-200 w-1/12 truncate text-sm">{campus.contact}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 truncate text-sm">{branch.contact}</td>
                       <td className="py-2 px-4 border border-gray-200 w-2/12 truncate lowercase text-sm">
-                        {campus.email}
+                        {branch.email}
                       </td>
                       <td className="py-2 px-4 border border-gray-200 w-2/12 text-sm">
                         <div className="flex justify-between gap-2">
-                          <ButtonM text={"Edit"} variant="text" onClick={() => handleEditCampus(campus)} />
-                          <ButtonM text={"Delete"} variant="text" onClick={() => handleDeleteCampus(campus)} />
+                          <ButtonM text={"Edit"} variant="text" onClick={() => handleEditBranch(branch)} />
+                          <ButtonM text={"Delete"} variant="text" onClick={() => handleDeleteBranch(branch)} />
                         </div>
                       </td>
                     </tr>
@@ -259,4 +254,4 @@ const Campus = () => {
   );
 };
 
-export default Campus;
+export default Branch;

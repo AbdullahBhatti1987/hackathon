@@ -104,8 +104,8 @@ const Dashboard = () => {
     },
     {
       id: 7,
-      name: "Section",
-      route: "/admin/section",
+      name: "Department",
+      route: "/admin/department",
       icon: <IoTimerOutline />,
       length: 0,
     },
@@ -113,7 +113,7 @@ const Dashboard = () => {
     {
       id: 9,
       name: "Branch",
-      route: "/admin/campus",
+      route: "/admin/branch",
       icon: <SiCoursera />,
       // length: totalCount.campuseCount,
     },

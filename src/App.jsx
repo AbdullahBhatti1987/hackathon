@@ -8,44 +8,44 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Admin from "./pages/Admin";
 import Dashboard from "./components/Dashboard";
 // import Signup from "./pages/Signup";
-import Signin from "./components/SignIn";
-import Quiz from "./pages/Quiz";
-import Teacher from "./pages/Teacher";
-import Student from "./pages/Student";
-import Result from "./pages/Result";
-import Batch from "./pages/Batch";
-import Course from "./pages/Course";
-import Staff from "./pages/Staff";
-import Section from "./pages/Section";
-import Registration from "./pages/Registration";
-import Class from "./pages/Class";
-import Campus from "./pages/Campus";
-import Reports from "./pages/Reports";
-import Fee from "./pages/Fee";
-import User from "./pages/User";
-import Attendance from "./pages/Attendance";
-import Setting from "./pages/Setting";
-import Curriculam from "./pages/Curriculam";
-import Assignment from "./pages/Assignment";
-import Material from "./pages/Material";
-import Certificate from "./pages/Certificate";
-import TeacherDashboard from "./components/TeacherDashboard";
-import StudentDashboard from "./components/StudentDashboard";
-import StudentAssignments from "./pages/student/StudentAssignments";
-import StudentResult from "./pages/student/StudentResult";
-import StudentCertificates from "./pages/student/StudentCertificates";
-import StudentCourse from "./pages/student/StudentCourse";
-import StudentFee from "./pages/student/StudentFee";
-import TeacherCurriculam from "./pages/trainer/TeacherCurriculam";
-import TeacherClass from "./pages/trainer/TeacherClass";
-import TeacherSession from "./pages/trainer/TeacherSession";
-import TeacherAssignment from "./pages/trainer/TeacherAssignment";
-import TeacherStudent from "./pages/trainer/TeacherStudent";
-import TeacherResult from "./pages/trainer/TeacherResult";
+// import Signin from "./components/SignIn";
+// import Quiz from "./pages/Quiz";
+// import Teacher from "./pages/Teacher";
+// import Student from "./pages/Student";
+// import Result from "./pages/Result";
+// import Batch from "./pages/Batch";
+// import Course from "./pages/Course";
+// import Staff from "./pages/Staff";
+// import Section from "./pages/Section";
+// import Registration from "./pages/Registration";
+import Department from "./pages/Department";
+import Branch from "./pages/Branch";
+// import Reports from "./pages/Reports";
+// import Fee from "./pages/Fee";
+// import User from "./pages/User";
+// import Attendance from "./pages/Attendance";
+// import Setting from "./pages/Setting";
+// import Curriculam from "./pages/Curriculam";
+// import Assignment from "./pages/Assignment";
+// import Material from "./pages/Material";
+// import Certificate from "./pages/Certificate";
+// import TeacherDashboard from "./components/TeacherDashboard";
+// import StudentDashboard from "./components/StudentDashboard";
+// import StudentAssignments from "./pages/student/StudentAssignments";
+// import StudentResult from "./pages/student/StudentResult";
+// import StudentCertificates from "./pages/student/StudentCertificates";
+// import StudentCourse from "./pages/student/StudentCourse";
+// import StudentFee from "./pages/student/StudentFee";
+// import TeacherCurriculam from "./pages/trainer/TeacherCurriculam";
+// import TeacherClass from "./pages/trainer/TeacherClass";
+// import TeacherSession from "./pages/trainer/TeacherSession";
+// import TeacherAssignment from "./pages/trainer/TeacherAssignment";
+// import TeacherStudent from "./pages/trainer/TeacherStudent";
+// import TeacherResult from "./pages/trainer/TeacherResult";
 import City from "./pages/City";
 // import RegistrationForm from "./pages/student/RegistrationForm";
-import StudentAttendance from "./pages/student/StudentAttendance";
-import StudentRegistration from "./pages/user/StudentRegistration";
+// import StudentAttendance from "./pages/student/StudentAttendance";
+// import StudentRegistration from "./pages/user/StudentRegistration";
 
 // const DashboardLayoutBasic = React.lazy(() => import("./components/DashboardLayoutBasic"));
 // import UserDashboard from "./components/UserDashboard";
@@ -61,7 +61,14 @@ import StudentProfile from "./components/StudentProfile";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+    future={{
+      v7_relativeSplatPath: true,
+      v7_startTransition: true,
+    }}
+    >
+
+
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
         {/* Admin Routes */}
@@ -69,9 +76,9 @@ function App() {
           {/* <Suspense fallback={<div className="loader"></div>}> */}
           <Route index element={<Admin />} />
           <Route path="city" element={<City />} />
-          <Route path="campus" element={<Campus />} />
-          <Route path="class" element={<Class />} />
-          <Route path="course" element={<Course />} />
+          <Route path="branch" element={<Branch />} />
+          <Route path="department" element={<Department />} />
+          {/* <Route path="course" element={<Course />} />
           <Route path="trainer" element={<Teacher />} />
           <Route path="student" element={<Student />} />
           <Route path="section" element={<Section />} />
@@ -90,12 +97,12 @@ function App() {
           <Route path="assignments" element={<Assignment />} />
           <Route path="user" element={<Staff />} />
           <Route path="settings" element={<Setting />} />
-          <Route path="city" element={<City />} />
+          <Route path="city" element={<City />} /> */}
           {/* </Suspense> */}
         </Route>
         */
         {/* Trainer Routes */}
-        <Route path="trainer" element={<TeacherDashboard />}>
+        {/* <Route path="trainer" element={<TeacherDashboard />}>
           <Route index element={<TrainerProfile />} />
           <Route path="curriculam" element={<TeacherCurriculam />} />
           <Route path="class" element={<TeacherClass />} />
@@ -103,9 +110,9 @@ function App() {
           <Route path="assignment" element={<Assignment />} />
           <Route path="student" element={<TeacherStudent />} />
           <Route path="result" element={<TeacherResult />} />
-        </Route>
+        </Route> */}
         {/* Student Routes  */}
-        <Route path="student" element={<StudentDashboard />}>
+        {/* <Route path="student" element={<StudentDashboard />}>
         <Route index element={<StudentProfile />} />
           <Route path="course" element={<StudentCourse />} />
           <Route path="assignment" element={<StudentAssignments />} />
@@ -121,7 +128,7 @@ function App() {
           <Route path="userquiz" element={<UserQuiz />} />
           <Route path="admitcard" element={<AdmitCard />} />
           <Route path="userresult" element={<UserResult />} />
-        </Route>
+        </Route> */}
       </Routes>
     </BrowserRouter>
   );

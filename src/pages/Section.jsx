@@ -13,7 +13,7 @@ import { fetchCities } from "@/api/City.jsx";
 import { fetchCourses } from "@/api/Course.jsx";
 import SelectWithLabel from "@/components/SelectWithLabel";
 
-const Section = () => {
+const Department = () => {
   const [sections, setSections] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -454,4 +454,4 @@ const Section = () => {
   );
 };
 
-export default Section;
+export default Department;
