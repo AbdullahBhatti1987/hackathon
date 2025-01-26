@@ -25,7 +25,7 @@ function App() {
           <Route path="city" element={<City />} />
           <Route path="branch" element={<Branch />} />
           <Route path="department" element={<Department />} />
-          <Route path="seeker" element={<Seeker />} />
+          {/* <Route path="seeker" element={<Seeker />} /> */}
         </Route>
 
         {/* <Route path="receptionst" element={<Receiptionist />}>
