@@ -55,15 +55,15 @@ export const AppRoutes = {
   // classCount: BASE_URL + "api/v1/class/class-count",
 
   // Batch Sections
-  addSection: BASE_URL + "api/v1/section/add-section",
-  getAllSections: BASE_URL + "api/v1/section/all-sections",
-  updateSection: BASE_URL + "api/v1/section/update-section/:id",
-  deleteSection: BASE_URL + "api/v1/section/delete-section/:id",
+  // addSection: BASE_URL + "api/v1/section/add-section",
+  // getAllSections: BASE_URL + "api/v1/section/all-sections",
+  // updateSection: BASE_URL + "api/v1/section/update-section/:id",
+  // deleteSection: BASE_URL + "api/v1/section/delete-section/:id",
 
-  // Assignment Routes
-  addAssignment: BASE_URL + "api/v1/assignment/add-assignment",
-  getAllAssignments: BASE_URL + "api/v1/assignment/all-assignments",
-  getSingleAssignments: BASE_URL + "api/v1/assignment/single-assignment/:id",
-  updateAssignment: BASE_URL + "api/v1/assignment/update-assignment/:id",
-  deleteAssignment: BASE_URL + "api/v1/assignment/delete-assignment/:id",
+  // // Assignment Routes
+  // addAssignment: BASE_URL + "api/v1/assignment/add-assignment",
+  // getAllAssignments: BASE_URL + "api/v1/assignment/all-assignments",
+  // getSingleAssignments: BASE_URL + "api/v1/assignment/single-assignment/:id",
+  // updateAssignment: BASE_URL + "api/v1/assignment/update-assignment/:id",
+  // deleteAssignment: BASE_URL + "api/v1/assignment/delete-assignment/:id",
 };
