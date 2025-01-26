@@ -1,5 +1,4 @@
-import React, {  } from "react";
-import "./App.css";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Admin from "./pages/Admin";
 import Dashboard from "./components/Dashboard";
@@ -18,9 +17,8 @@ function App() {
     >
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
-        {/* Admin Routes */}
+
         <Route path="/admin" element={<Dashboard />}>
-          {/* <Suspense fallback={<div className="loader"></div>}> */}
           <Route index element={<Admin />} />
           <Route path="city" element={<City />} />
           <Route path="branch" element={<Branch />} />

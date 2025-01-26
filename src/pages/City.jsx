@@ -9,7 +9,6 @@ import Filter from "@/components/Filter";
 import { message } from "antd";
 import InputWithLabel from "@/components/InputWithLabel";
 import { addCity, deleteCity, fetchCities, updateCity } from "@/api/City.jsx";
-import "../App.css";
 
 const City = () => {
   const [cities, setCities] = useState([]);
