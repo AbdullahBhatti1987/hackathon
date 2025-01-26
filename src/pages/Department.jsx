@@ -210,7 +210,7 @@ const Department = () => {
                   <td className="p-2 border border-gray-200 text-center">{index + 1}</td>
                   <td className="p-2 border border-gray-200">{department.title}</td>
                   <td className="p-2 border border-gray-200 text-start">{department.email}</td>
-                  <td className="p-2 border border-gray-200 text-start">{department.facultyCount}</td>
+                  <td className="p-2 border border-gray-200 text-start">{department.contact}</td>
                   <td className="p-2 border border-gray-200 text-start">{department?.branch?.title}</td>
                   <td className="p-2 border border-gray-200 text-center">{department?.city?.city}</td>
                   <td className="p-2 border border-gray-200 text-center">

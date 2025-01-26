@@ -7,31 +7,29 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import ButtonM from "./ButtonM";
 
-export default function Header({ fullName, email, imageUrl}) {
+export default function Header({ fullName, email, imageUrl }) {
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [search, setSearch] = useState("");
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
 
-
-   useEffect(() => {
-      const decodeToken = async () => {
-        try {
-          const token = Cookies.get("token");
-          if (token) {
-            const decoded = jwtDecode(token);
-            setCurrentUser(decoded);
-            return;
-          } 
-        } catch (error) {
-          console.error("Error decoding token:", error);
+  useEffect(() => {
+    const decodeToken = async () => {
+      try {
+        const token = Cookies.get("token");
+        if (token) {
+          const decoded = jwtDecode(token);
+          setCurrentUser(decoded);
+          return;
         }
-      };
-  
-      decodeToken();
-    }, [navigate]);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    };
 
+    decodeToken();
+  }, [navigate]);
 
   const user = {
     imageUrl: currentUser.imageUrl, // Example image URL
@@ -49,16 +47,6 @@ export default function Header({ fullName, email, imageUrl}) {
     setUserMenuOpen(!userMenuOpen);
   };
 
-  const handleSignOut = async () => {
-    try {
-      await Cookies.remove("token");
-      console.log("User has been logged out.");
-      navigate("/");
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
-
   const handleSearch = () => {
     console.log("search Item =>", search);
   };
@@ -68,7 +56,7 @@ export default function Header({ fullName, email, imageUrl}) {
       {/* Left Section */}
       <div className="flex flex-row w-2/12">
         <h1 className="text-lg font-semibold flex text-start rounded-lg justify-center items-center h-full w-full">
-          SMIT Portal
+          Saylani Portal
         </h1>
       </div>
 
@@ -97,7 +85,6 @@ export default function Header({ fullName, email, imageUrl}) {
         <div className="flex justify-center items-center p-2 text-neutral-500 hover:text-neutral-700">
           <MdOutlineMessage className="text-2xl" />
         </div>
-
 
         {/* User Info and Theme Toggle */}
         <div className="flex justify-center items-center p-2 text-neutral-500 hover:text-neutral-700">
@@ -144,7 +131,6 @@ export default function Header({ fullName, email, imageUrl}) {
             {/* User Menu */}
             {userMenuOpen && (
               <div
-            
                 style={{
                   position: "absolute",
                   right: "10px",
@@ -160,19 +146,6 @@ export default function Header({ fullName, email, imageUrl}) {
                   <p>{user?.name}</p>
                   <p style={{ color: "#666" }}>{user?.email}</p>
                 </div>
-                <button
-                  onClick={handleSignOut}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    backgroundColor: "transparent",
-                    border: "none",
-                    cursor: "pointer",
-                    color: "#ff0000",
-                  }}
-                >
-                  <span className={"text-gray-400 font-bold border-2 p-2"}> Sign Out</span>
-                </button>
               </div>
             )}
           </div>

@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Modal from "react-modal";
 import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";
 import Link from "@mui/material/Link";
@@ -21,6 +22,8 @@ import AppTheme from "../shared-theme/AppTheme";
 import Cookies from "js-cookie";
 import { IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import SignupModal from "./SignupModal";
+import ButtonM from "./ButtonM";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -69,6 +72,7 @@ export default function SignIn(props) {
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [messageApi, contextHolder] = message.useMessage();
   const [isLoading, setIsLoading] = useState(false);
@@ -79,34 +83,41 @@ export default function SignIn(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const decodeToken = async () => {
+      try {
+        const token = Cookies.get("token");
+        if (token) {
+          // console.error("Token found");
+          setTimeout(() => {
+            if (employee.role === "admin") {
+              navigate("/admin");
+            } else if (employee.role === "staff") {
+              navigate("/staff");
+            } else if (employee.role === "receiptionist") {
+              navigate("/receiptionist");
+            } else {
+              // messageApi.success("You are not authorized to login this dashboard");
+            }
+          }, 1000);
+          return;
+        }
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    };
 
-  // useEffect(() => {
-  //   const decodeToken = async () => {
-  //     try {
-  //       const token = Cookies.get("token");
-  //       if (token) {
-  //         // console.error("Token found");
-  //         setTimeout(() => {
-  //           if (user.role === "admin") {
-  //             navigate("/admin");
-  //           } else if (user.role === "trainer") {
-  //             navigate("/trainer");
-  //           } else if (user.role === "student") {
-  //             navigate("/student");
-  //           } else {
-  //             messageApi.success("You are not authorized to login this dashboard");
-  //           }
-  //         }, 1000);
-  //         return;
-  //       }
-  //     } catch (error) {
-  //       console.error("Error decoding token:", error);
-  //     }
-  //   };
+    decodeToken();
+  }, [navigate]);
 
-  //   decodeToken();
-  // }, [navigate]);
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEmployee({
+      ...employee,
+      [name]: value,
+    });
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -128,17 +139,16 @@ export default function SignIn(props) {
           {
             contextHolder;
           }
-        
+
           setEmployee(employee);
 
           messageApi.success("Sign-in successful!");
 
           Cookies.set("token", token);
           const getToken = Cookies.get("token");
-          console.log("Employee=>", employee)
+          console.log("Employee=>", employee);
           setTimeout(() => {
-
-            console.log("Employee-Role", employee.role)
+            console.log("Employee-Role", employee.role);
             if (employee.role === "admin") {
               navigate("/admin");
             } else if (employee.role === "staff") {
@@ -158,6 +168,10 @@ export default function SignIn(props) {
       return;
     }
   };
+
+  {
+    isModalOpen && <SignupModal onClose={() => setIsModalOpen(false)} />;
+  }
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -198,6 +212,65 @@ export default function SignIn(props) {
 
   return (
     <AppTheme {...props}>
+
+<Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        className="modalStyle"
+      >
+        <h2 className="text-xl font-bold mb-4">Update Password</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+        >
+          <div className="mb-4">
+            <label htmlFor="cnic" className="block mb-2">
+              CNIC Number
+            </label>
+            <input
+              type="text"
+              id="cnic"
+              name="cnic"
+              value={employee.cnic}
+              onChange={handleInputChange}
+              placeholder="Enter CNIC"
+              className="w-full p-2 border rounded"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block mb-2">
+              Create Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={employee.password}
+              onChange={handleInputChange}
+              placeholder="Enter new password"
+              className="w-full p-2 border rounded"
+            />
+          </div>
+
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </Modal>
       <CssBaseline enableColorScheme />
 
       <SignInContainer direction="column" justifyContent="space-between" className="">
@@ -236,7 +309,7 @@ export default function SignIn(props) {
                   name="email"
                   fullWidth
                   maxRows={4}
-                  placeholder="example@email.com"
+                  placeholder="abdullah.bhatti@smit.com"
                   color={emailError ? "error" : "primary"}
                   helperText={emailErrorMessage}
                   onChange={(e) => setEmail(e.target.value)}
@@ -250,7 +323,7 @@ export default function SignIn(props) {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••"
+                  placeholder="abdullah123"
                   autoComplete="current-password"
                   autoFocus
                   required
@@ -303,9 +376,12 @@ export default function SignIn(props) {
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <Typography sx={{ textAlign: "center" }}>
                 Don&apos;t have an account?{" "}
-                <Link href="" variant="body2" sx={{ alignSelf: "center" }}>
-                  Sign up
-                </Link>
+                <ButtonM className={"bg-transparent text-blue-400"}
+                  text={"SIgnUp"}
+                  onClick={() => {
+                    setIsModalOpen(true);
+                  }}
+                />
               </Typography>
             </Box>
           </Box>

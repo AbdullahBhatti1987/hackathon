@@ -9,13 +9,14 @@ export const AppRoutes = {
   login: BASE_URL + "api/v1/employee/emp-login",
   register: BASE_URL + "api/v1/employee/emp-registration",
   getMyInfo: BASE_URL + "api/v1/employee/:id",
+  getFindUpdateWithPassword: BASE_URL + "api/v1/employee/single-emp",
   
   // User Routes
   getAllUsers: BASE_URL + "api/v1/user/all-users",
   deleteUser: BASE_URL + "api/v1/user/:id",
-  addUser: BASE_URL + "api/v1/user/smit-registration",
-  updateUser: BASE_URL + "api/v1/user/:id",
-  getSingleUser: BASE_URL + "api/v1/user/single-user",
+  addUser: BASE_URL + "api/v1/employee/smit-registration",
+  updateUser: BASE_URL + "api/v1/employee/:id",
+  getSingleUser: BASE_URL + "api/v1/employee/single-user",
 
   // City Routes
   addCity: BASE_URL + "api/v1/city/add-city",

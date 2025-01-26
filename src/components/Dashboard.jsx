@@ -53,17 +53,17 @@ const Dashboard = () => {
     decodeToken();
   }, [navigate, messageApi]);
 
-  // const handleSignOut = async () => {
-  //   try {
-  //     await Cookies.remove("token");
-  //     setSession(null);
-  //     console.log("User has been logged out.");
-  //     navigate("/");
-  //     messageApi.success("User Signout successful!");
-  //   } catch (error) {
-  //     console.error("Error logging out:", error);
-  //   }
-  // };
+  const handleSignOut = async () => {
+    try {
+      await Cookies.remove("token");
+      setSession(null);
+      console.log("User has been logged out.");
+      navigate("/");
+      messageApi.success("User Signout successful!");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   const adminArray = [
     {
@@ -71,45 +71,13 @@ const Dashboard = () => {
       name: "Dashboard",
       route: "/admin",
       icon: <PiSquaresFour />,
-      length: "Dashboard"?.length,
     },
     {
-      id: 2,
-      name: "Batch",
-      route: "/admin/batch",
-      icon: <PiChalkboardTeacher />,
-      length: 0,
+      id: 21,
+      name: "City",
+      route: "/admin/city",
+      icon: <FaCity />,
     },
-
-    {
-      id: 4,
-      name: "Staff",
-      route: "/admin/trainer",
-      icon: <LiaChalkboardTeacherSolid />,
-      // length: trainer?.length,
-    },
-    {
-      id: 5,
-      name: "Receptionist",
-      route: "/admin/student",
-      icon: <PiStudent />,
-      // length: students?.length,
-    },
-    {
-      id: 6,
-      name: "Class",
-      route: "/admin/class",
-      icon: <PiChalkboardTeacher />,
-      // length: classes?.length,
-    },
-    {
-      id: 7,
-      name: "Department",
-      route: "/admin/department",
-      icon: <IoTimerOutline />,
-      length: 0,
-    },
-
     {
       id: 9,
       name: "Branch",
@@ -118,25 +86,31 @@ const Dashboard = () => {
       // length: totalCount.campuseCount,
     },
     {
+      id: 7,
+      name: "Department",
+      route: "/admin/department",
+      icon: <IoTimerOutline />,
+    },
+
+    {
+      id: 4,
+      name: "Staff",
+      route: "/admin/staff",
+      icon: <PiStudent />,
+    },
+
+    {
       id: 12,
       name: "Reports",
       route: "/admin/reports",
       icon: <MdOutlineMessage />,
-      length: "Reports".length,
     },
 
     {
       id: 20,
-      name: "Users",
-      route: "/admin/user",
+      name: "Seekers",
+      route: "/admin/seeker",
       icon: <FaUserCircle />,
-    },
-    {
-      id: 21,
-      name: "City",
-      route: "/admin/city",
-      icon: <FaCity />,
-      length: 0,
     },
   ];
 
@@ -171,6 +145,7 @@ const Dashboard = () => {
   // const HandleMenu = () => {
   //   setMenu(menu ? false : true);
   // };
+
 
   return (
     <div className="w-full h-screen p-2 overflow-hidden">
@@ -213,10 +188,10 @@ const Dashboard = () => {
                   })}
                 >
                   <span className="w-1/4 flex items-center justify-center text-xl">
-                    <IoLogOutOutline />
+                    <IoLogOutOutline  />
                   </span>
                   {menu && (
-                    <span className="w-2/4 truncate text-md font-medium transition-colors duration-200">Logout</span>
+                    <span onClick={handleSignOut} className="w-2/4 truncate text-md font-medium transition-colors duration-200">Logout</span>
                   )}
                 </NavLink>
               </li>
