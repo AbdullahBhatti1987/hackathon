@@ -6,6 +6,8 @@ import Department from "./pages/Department";
 import Branch from "./pages/Branch";
 import City from "./pages/City";
 import SignIn from "./components/SignIn";
+import Seeker from "./pages/Seeker";
+import Employee from "./pages/Employee";
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
           <Route path="city" element={<City />} />
           <Route path="branch" element={<Branch />} />
           <Route path="department" element={<Department />} />
-          {/* <Route path="seeker" element={<Seeker />} /> */}
+          <Route path="seeker" element={<Seeker />} />
+          <Route path="employee" element={<Employee />} />
         </Route>
 
         {/* <Route path="receptionst" element={<Receiptionist />}>

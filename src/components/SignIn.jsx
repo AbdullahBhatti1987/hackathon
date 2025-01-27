@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Modal from "react-modal";
 import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";
 import Link from "@mui/material/Link";
@@ -22,8 +21,7 @@ import AppTheme from "../shared-theme/AppTheme";
 import Cookies from "js-cookie";
 import { IconButton, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import SignupModal from "./SignupModal";
-import ButtonM from "./ButtonM";
+import SignupModal from "./SignupModal"
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -82,6 +80,7 @@ export default function SignIn(props) {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
+  const [openSignup, setOpenSignup] = useState(false);
 
   useEffect(() => {
     const decodeToken = async () => {
@@ -110,7 +109,6 @@ export default function SignIn(props) {
     decodeToken();
   }, [navigate]);
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
@@ -122,9 +120,19 @@ export default function SignIn(props) {
     setOpen(true);
   };
 
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleOpenUpdatePassword = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseUpdatePassword = () => {
+    setIsModalOpen(false);
+  };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -169,10 +177,6 @@ export default function SignIn(props) {
     }
   };
 
-  {
-    isModalOpen && <SignupModal onClose={() => setIsModalOpen(false)} />;
-  }
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
@@ -213,64 +217,6 @@ export default function SignIn(props) {
   return (
     <AppTheme {...props}>
 
-<Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        className="modalStyle"
-      >
-        <h2 className="text-xl font-bold mb-4">Update Password</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}
-        >
-          <div className="mb-4">
-            <label htmlFor="cnic" className="block mb-2">
-              CNIC Number
-            </label>
-            <input
-              type="text"
-              id="cnic"
-              name="cnic"
-              value={employee.cnic}
-              onChange={handleInputChange}
-              placeholder="Enter CNIC"
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block mb-2">
-              Create Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={employee.password}
-              onChange={handleInputChange}
-              placeholder="Enter new password"
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </Modal>
       <CssBaseline enableColorScheme />
 
       <SignInContainer direction="column" justifyContent="space-between" className="">
@@ -362,6 +308,7 @@ export default function SignIn(props) {
               {isLoading && <div className="loader"></div>}
 
               <Link
+          
                 component="button"
                 type="button"
                 onClick={handleClickOpen}
@@ -375,13 +322,18 @@ export default function SignIn(props) {
             <Divider>or</Divider>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <Typography sx={{ textAlign: "center" }}>
-                Don&apos;t have an account?{" "}
-                <ButtonM className={"bg-transparent text-blue-400"}
-                  text={"SIgnUp"}
-                  onClick={() => {
-                    setIsModalOpen(true);
-                  }}
-                />
+                Don&apos;t have an account? 
+                <Link
+                  component="button"
+                  type="button"
+                  onClick={handleOpenUpdatePassword}
+                  variant="body2"
+                  className="hover:bg-transparent"
+                  sx={{ alignSelf: "center", paddingLeft: '5px' }}
+                >
+                   SignUp
+                </Link>
+                <SignupModal open={isModalOpen} handleClose={handleCloseUpdatePassword} />
               </Typography>
             </Box>
           </Box>

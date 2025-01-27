@@ -43,7 +43,7 @@ import ButtonM from "./ButtonM";
 import axios from "axios";
 import { TotalCountContext } from "@/context/TotalCount";
 import { PiWallet } from "react-icons/pi";
-import Header from "./HeaderToogle";
+import Header from "./Header";
 
 const StudentDashboard = () => {
   const [search, setSearch] = useState("");

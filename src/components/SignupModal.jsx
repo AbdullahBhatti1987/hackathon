@@ -1,120 +1,107 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import axios from "axios";
-import Modal from "react-modal";
+import { AppRoutes } from "@/constant/constant";
+import { message } from "antd";
 
-function SignupModal({ isModalOpen, setIsModalOpen }) {
-  const [employee, setEmployee] = useState({ cnic: "", password: "" });
+function UpdatePassword({ open, handleClose }) {
+  const [employeeDetails, setEmployeeDetails] = useState({ cnic: "", password: "" });
+  const [messageApi, contextHolder] = message.useMessage();
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Handle input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEmployee({
-      ...employee,
-      [name]: value,
-    });
-  };
-
-  // Reset form
-  const resetForm = () => {
-    setEmployee({ cnic: "", password: "" });
-  };
-
-  // Search and update logic
-  const handleSearch = async () => {
-    if (!employee.cnic || !employee.password) {
-      alert("Please fill in both CNIC and Password fields.");
-      return;
-    }
-
+  const savePassword = async () => {
     try {
-      // Search for CNIC in the database
-      const searchResponse = await axios.get(`/api/employees?cnic=${employee.cnic}`);
-      if (searchResponse.data?.success && searchResponse.data?.employee) {
-        const employeeId = searchResponse.data.employee._id;
-
-        // Update password for the found employee
-        const updateResponse = await axios.put(`/api/employees/${employeeId}`, {
-          password: employee.password,
-        });
-
-        if (updateResponse.data?.success) {
-          alert("Password updated successfully!");
-          resetForm();
-          setIsModalOpen(false);
-        } else {
-          alert("Failed to update the password. Please try again.");
-        }
-      } else {
-        alert("No employee found with the provided CNIC.");
-      }
+      setIsLoading(true);
+      const response = await axios.put(AppRoutes.getFindUpdateWithPassword, employeeDetails);
+      console.log("Password updated successfully:", response.data);
+      messageApi.success("Update Password successfully!");
+      setIsLoading(false);
+      resetForm();
+      handleClose();
     } catch (error) {
-      console.error("Error during search or update:", error);
-      alert("An error occurred. Please try again.");
+      setIsLoading(false);
+      console.error("Error updating password:", error);
+      messageApi.success("Error updating password:, error");
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    savePassword();
+  };
+
+  const resetForm = () => {
+    setEmployeeDetails({ cnic: "", password: "" });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEmployeeDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+  };
+
 
   return (
-    <div>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        className="modalStyle"
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      PaperProps={{
+        component: "form",
+        onSubmit: handleSubmit,
+        sx: { backgroundImage: "none" },
+      }}
+      className={""}
+    >
+      {contextHolder}
+      {isLoading && <div className="loader"></div>}
+      <DialogTitle>Reset Password</DialogTitle>
+      <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, width: "100%" }}
+     
       >
-        <h2 className="text-xl font-bold mb-4">Update Password</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}
-        >
-          <div className="mb-4">
-            <label htmlFor="cnic" className="block mb-2">
-              CNIC Number
-            </label>
-            <input
-              type="text"
-              id="cnic"
-              name="cnic"
-              value={employee.cnic}
-              onChange={handleInputChange}
-              placeholder="Enter CNIC"
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block mb-2">
-              Create Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={employee.password}
-              onChange={handleInputChange}
-              placeholder="Enter new password"
-              className="w-full p-2 border rounded"
-            />
-          </div>
-
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Update
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      </Modal>
-    </div>
+        <DialogContentText>Search your account using CNIC and Create your password.</DialogContentText>
+        <OutlinedInput
+          autoFocus
+          required
+          margin="dense"
+          id="cnic"
+          name="cnic"
+          placeholder="CNIC Number"
+          type="text"
+          fullWidth
+          value={employeeDetails.cnic}
+          onChange={handleChange}
+        />
+        <OutlinedInput
+          required
+          margin="dense"
+          id="password"
+          name="password"
+          placeholder="Enter New Password"
+          type="password"
+          fullWidth
+          value={employeeDetails.password}
+          onChange={handleChange}
+        />
+      </DialogContent>
+      <DialogActions sx={{ pb: 3, px: 3 }}>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button variant="contained" type="submit" disabled={isLoading}>
+          {isLoading ? "Creating..." : "Create Password"}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
-export default SignupModal;
+UpdatePassword.propTypes = {
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
+
+export default UpdatePassword;

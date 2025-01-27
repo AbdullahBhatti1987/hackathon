@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { Outlet } from "react-router-dom";
-import { IoIosNotificationsOutline, IoIosSearch, IoIosGitBranch } from "react-icons/io";
-import { LiaChalkboardTeacherSolid } from "react-icons/lia";
-import { SiGoogleclassroom, SiCoursera } from "react-icons/si";
+import { SiCoursera } from "react-icons/si";
 import { IoTimerOutline, IoSettingsOutline } from "react-icons/io5";
-import { HiOutlineCurrencyDollar } from "react-icons/hi2";
-import { MdOutlineQuiz, MdOutlineMessage, MdOutlineAssignmentInd } from "react-icons/md";
-import {
-  PiStudent,
-  PiChalkboardTeacher,
-  PiSquaresFour,
-  PiUser,
-  PiClipboard,
-  PiClipboardText,
-  PiCertificateLight,
-} from "react-icons/pi";
+
 import { FaChalkboardTeacher, FaCity, FaUserCircle } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import MenuList from "./MenuList";
@@ -24,9 +11,9 @@ import { NavLink } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { message } from "antd";
 import Cookies from "js-cookie";
-import Header from "../components/HeaderToogle";
+import Header from "./Header";
 import { jwtDecode } from "jwt-decode";
-
+import { adminArray, staffArray, receptionistArray } from "../content/menuArray"
 const Dashboard = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [currentUser, setCurrentUser] = useState("");
@@ -65,78 +52,6 @@ const Dashboard = () => {
     }
   };
 
-  const adminArray = [
-    {
-      id: 1,
-      name: "Dashboard",
-      route: "/admin",
-      icon: <PiSquaresFour />,
-    },
-    {
-      id: 21,
-      name: "City",
-      route: "/admin/city",
-      icon: <FaCity />,
-    },
-    {
-      id: 9,
-      name: "Branch",
-      route: "/admin/branch",
-      icon: <SiCoursera />,
-      // length: totalCount.campuseCount,
-    },
-    {
-      id: 7,
-      name: "Department",
-      route: "/admin/department",
-      icon: <IoTimerOutline />,
-    },
-
-    {
-      id: 4,
-      name: "Staff",
-      route: "/admin/staff",
-      icon: <PiStudent />,
-    },
-
-    {
-      id: 12,
-      name: "Reports",
-      route: "/admin/reports",
-      icon: <MdOutlineMessage />,
-    },
-
-    {
-      id: 20,
-      name: "Seekers",
-      route: "/admin/seeker",
-      icon: <FaUserCircle />,
-    },
-  ];
-
-  const staffArray = [
-    { id: 1, name: "Dashboard", route: "/dashboard", icon: <PiSquaresFour /> },
-    { id: 2, name: "Profile", route: "/profile", icon: <PiUser /> },
-    {
-      id: 3,
-      name: "Courses",
-      route: "/courses",
-      icon: <FaChalkboardTeacher />,
-    },
-    {
-      id: 4,
-      name: "Assignments",
-      route: "/assignments",
-      icon: <PiClipboard />,
-    },
-    { id: 5, name: "Results", route: "/result", icon: <PiClipboardText /> },
-    {
-      id: 6,
-      name: "Notifications",
-      route: "/notifications",
-      icon: <IoIosNotificationsOutline />,
-    },
-  ];
 
   // const HandleSearch = () => {
   //   console.log("search Item=>", search);
@@ -152,7 +67,7 @@ const Dashboard = () => {
       {contextHolder}
       <div className="h-full w-full flex gap-1 flex-row rounded-md">
         <div className={`h-full ${menu ? "w-2/12" : "w-1/12"} left flex flex-col justify-start items-center`}>
-          <div className="flex  gap-4 w-full px-7 py-3 border-b-2 h-14">
+          <div className="flex  gap-4 w-full px-7 py-6 border-b-2 h-14">
             {menu && <h1 className="text-lg font-semibold text-center rounded-lg h-full w-full">Admin</h1>}
           </div>
           <div className="flex flex-col gap-2 w-full h-full overflow-y-auto justify-start scrollbar-hide">
@@ -169,6 +84,7 @@ const Dashboard = () => {
                     backgroundColor: isActive ? theme.palette.primary.main : "inherit",
                     color: isActive ? "white" : "inherit",
                   })}
+                  
                 >
                   <span className="w-1/4 flex items-center justify-center text-xl">
                     <IoSettingsOutline />
@@ -202,7 +118,7 @@ const Dashboard = () => {
           <div className="flex flex-row justify-between gap-1 w-full border-b border-neutral-300 px-4 h-14">
             <Header />
           </div>
-          <div className="h-full overflow-x-hidden overflow-y-auto scrollbar-custom">
+          <div className="h-full overflow-x-hidden overflow-y-auto scrollbar-custom p-4">
             <Outlet />
           </div>
         </div>

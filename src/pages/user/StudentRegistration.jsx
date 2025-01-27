@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Heading1 from "@/components/Heading1";
 import SelectWithLabel from "@/components/SelectWithLabel";
 import { fetchCities } from "@/api/City";
-import { fetchCourses } from "@/api/Course";
+import { fetchCourses } from "@/api/Employees";
 import InputWithLabel from "@/components/InputWithLabel";
 import axios from "axios";
 import { AppRoutes } from "@/constant/constant";
