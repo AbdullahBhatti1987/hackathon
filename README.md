@@ -1,8 +1,16 @@
-# React + Vite
+This is Benefishery system of Saylani Welfare..
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+frontend deployed on Vercel, Link is here: https://vercel.com/abdullah-bhattis-projects-5611a34c/hackathon/CbyYiVmnY6M9mCD8iod4jB7x5hu2
 
-Currently, two official plugins are available:
+backend deployed on Render, Link is here: https://hackathonbackend-v6i2.onrender.com
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Database used of MongoDb, 
+
+AdminID :  abdullah.bhatti@smit.com
+Password : abdullah123
+
+
+![image](https://github.com/user-attachments/assets/7e1ce090-03a8-4e3f-8c89-ed6c0c99012b)
+
+
+
