@@ -1,8 +1,16 @@
-# React + Vite
+frontend deployed on Vercel, Link is here: https://vercel.com/abdullah-bhattis-projects-5611a34c/hackathon/CbyYiVmnY6M9mCD8iod4jB7x5hu2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+backend deployed on Render, Link is here: https://hackathonbackend-v6i2.onrender.com
 
-Currently, two official plugins are available:
+Database used of MongoDb, 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+AdminID :  abdullah.bhatti@smit.com
+Password : abdullah123
+
+An employee number is automatically generated at the time of registration. When the registration form is submitted, the system finds the last assigned employee number and increases it by one.
+
+![image](https://github.com/user-attachments/assets/59ef33d8-1241-4469-8359-7f71f358f2a7)
+
+
+
+
