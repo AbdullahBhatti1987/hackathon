@@ -2,7 +2,7 @@ const devUrl = "http://localhost:5000/";
 const prodUrl = "https://hackathonbackend-v6i2.onrender.com/";
 
 // Set BASE_URL depending on the environment
-export const BASE_URL = process.env.NODE_ENV === "production" ? devUrl : devUrl;
+export const BASE_URL = process.env.NODE_ENV === "production" ? prodUrl : devUrl;
 
 export const AppRoutes = {
   // Authentication Routes

@@ -10,10 +10,10 @@
 }
 
 .text-primary{
-color: var(--text-primary);
+color: var(--bg-blue-full);
 }
 .bg-primary{
-background-color: var(--text-primary);
+background-color: var(--bg-blue-full);
 }
 
 .modalOverlay {
@@ -91,21 +91,20 @@ z-index: 100;
 }
 
 .scrollbar-custom {
-overflow-y: auto;
+  overflow-y: auto;
 }
 
 .scrollbar-custom::-webkit-scrollbar {
-width: 8px;
+  width: 8px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
   background-color: rgba(52, 144, 220, 1);
-
-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .scrollbar-custom::-webkit-scrollbar-track {
-background: rgba(0, 0, 0, 0.1);
+background: rgba(0, 0, 0, 0.2);
 }
 
 .full-height-container {

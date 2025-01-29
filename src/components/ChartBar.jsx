@@ -27,14 +27,10 @@ import {
 // Sample chart data
 const chartData = [
   { date: "2024-04-01", desktop: 252, mobile: 90, webAndMobileApp: 120, flutter: 85, blockchain: 55, iot: 70, cybersecurity: 30 },
-  { date: "2024-04-01", desktop: 212, mobile: 160, webAndMobileApp: 140, flutter: 90, blockchain: 60, iot: 80, cybersecurity: 40 },
-  { date: "2024-04-01", desktop: 752, mobile: 150, webAndMobileApp: 300, flutter: 120, blockchain: 100, iot: 110, cybersecurity: 55 },
   { date: "2024-04-01", desktop: 222, mobile: 150, webAndMobileApp: 180, flutter: 95, blockchain: 70, iot: 85, cybersecurity: 35 },
   { date: "2024-04-01", desktop: 762, mobile: 150, webAndMobileApp: 330, flutter: 130, blockchain: 110, iot: 120, cybersecurity: 50 },
   // More data entries here...
   { date: "2024-06-30", desktop: 146, mobile: 400, webAndMobileApp: 400, flutter: 160, blockchain: 95, iot: 130, cybersecurity: 75 },
-  { date: "2024-06-30", desktop: 446, mobile: 400, webAndMobileApp: 450, flutter: 170, blockchain: 105, iot: 140, cybersecurity: 80 },
-  { date: "2024-06-30", desktop: 246, mobile: 400, webAndMobileApp: 380, flutter: 140, blockchain: 85, iot: 115, cybersecurity: 60 },
   { date: "2024-06-30", desktop: 346, mobile: 400, webAndMobileApp: 410, flutter: 150, blockchain: 90, iot: 120, cybersecurity: 65 },
   { date: "2024-06-30", desktop: 546, mobile: 400, webAndMobileApp: 500, flutter: 180, blockchain: 120, iot: 150, cybersecurity: 85 },
 ];
@@ -49,6 +45,10 @@ const chartConfig = {
     color: "hsl(var(--color-1))",
   },
   mobile: {
+    label: "Mobile",
+    color: "hsl(var(--color-2))",
+  },
+  PC: {
     label: "Mobile",
     color: "hsl(var(--color-2))",
   },
@@ -79,14 +79,14 @@ function ChartBar() {
           <CardTitle>Area Chart - Interactive</CardTitle>
           <CardDescription>Showing total visitors for the selected time range</CardDescription>
         </div>
-        <Select value={timeRange} onValueChange={setTimeRange}>
+        <Select value={timeRange} onValueChange={setTimeRange} className="bg-gray-400">
           <SelectTrigger
             className="w-[160px] rounded-lg sm:ml-auto"
             aria-label="Select a value"
           >
             <SelectValue placeholder="Last 3 months" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl">
+          <SelectContent className="rounded-xl ">
             <SelectItem value="360d" className="rounded-lg">
               Last 12 months
             </SelectItem>
@@ -144,30 +144,8 @@ function ChartBar() {
                   stopOpacity={0.1}
                 />
               </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
+            
+             
             </defs>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -213,26 +191,14 @@ function ChartBar() {
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="PC"
               type="natural"
               fill="url(#fillDesktop)"
               stroke="var(--color-desktop)"
               stackId="a"
             />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
+           
+           
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
         </ChartContainer>

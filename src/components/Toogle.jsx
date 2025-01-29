@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { IoMoon } from "react-icons/io5";
+import { MdWbSunny } from "react-icons/md";
 function Toggle() {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -13,8 +14,8 @@ function Toggle() {
   return (
     <div
       onClick={handleThemeToggle}
-      className={`w-10 h-6 flex items-center rounded-full cursor-pointer ${
-        darkMode ? "bg-gray-700" : "bg-gray-500"
+      className={`w-10 h-6 flex items-center rounded-full cursor-pointer shadow-sm ${
+        darkMode ? "bg-gray-600" : "bg-gray-200"
       }`}
     >
       <div
@@ -22,7 +23,7 @@ function Toggle() {
           darkMode ? "translate-x-5" : "translate-x-1"
         }`}
       >
-        {darkMode ? "🌙" : "🌞"}
+        {darkMode ? <IoMoon color="white"/> : <MdWbSunny/>}
       </div>
     </div>
   );

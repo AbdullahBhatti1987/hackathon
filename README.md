@@ -1,3 +1,6 @@
+npm run prod    // for live connect with backend,
+
+
 frontend deployed on Vercel, Link is here: https://vercel.com/abdullah-bhattis-projects-5611a34c/hackathon/CbyYiVmnY6M9mCD8iod4jB7x5hu2
 
 backend deployed on Render, Link is here: https://hackathonbackend-v6i2.onrender.com
