@@ -30,18 +30,19 @@ const Department = () => {
     department: "",
   });
 
-  useEffect(() => {
-    fetchDepartments(setDepartments);
-    console.log("departments=>", departments)
-    fetchCities(setCities);
-    fetchBranches(setBranches);
-  }, []);
+    useEffect(() => {
+      setIsLoading(true);
+      setTimeout(() => {
+        fetchDepartments(setDepartments);
+        setIsLoading(false);
+      }, 1000);
+    }, []);
+
 
   useEffect(() => {
     if (departmentDetails) {
       try {
         const branchesInCity = branches.filter((branch) => branch.city._id === departmentDetails.city);
-        console.log("branchesInCity=>", branchesInCity);
         setFilteredBranches(branchesInCity);
       } catch (error) {
         console.log("branchesInCity=>", branchesInCity);
@@ -191,39 +192,51 @@ const Department = () => {
           <ButtonM text={"Add Department"} onClick={() => setIsModalOpen(true)} className={"w-[12%]"} />
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto border-collapse">
-            <thead className="bg-gray-100 sticky top-0">
-              <tr className="border-b">
-                <th className="p-2 border border-gray-200 w-1/12">Serial No.</th>
-                <th className="p-2 border border-gray-200 w-3/12">Title</th>
-                <th className="p-2 border border-gray-200 w-3/12">Email</th>
-                <th className="p-2 border border-gray-200 w-1/12">Contact No.</th>
-                <th className="p-2 border border-gray-200 w-2/12">Branch</th>
-                <th className="p-2 border border-gray-200 w-1/12">City</th>
-                <th className="p-2 border border-gray-200 w-2/12">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {departments.map((department, index) => (
-                <tr key={department._id} className={index % 2 === 0 ? "bg-blue-100" : ""}>
-                  <td className="p-2 border border-gray-200 text-center">{index + 1}</td>
-                  <td className="p-2 border border-gray-200">{department.title}</td>
-                  <td className="p-2 border border-gray-200 text-start">{department.email}</td>
-                  <td className="p-2 border border-gray-200 text-start">{department.contact}</td>
-                  <td className="p-2 border border-gray-200 text-start">{department?.branch?.title}</td>
-                  <td className="p-2 border border-gray-200 text-center">{department?.city?.city}</td>
-                  <td className="p-2 border border-gray-200 text-center">
-                    <div className="flex gap-2">
-                      <ButtonM text={"Edit"} variant={"text"} onClick={() => handleEditDepartment(department)} />
-                      <ButtonM text={"Delete"} variant={"text"} onClick={() => handleDeleteDepartment(department)} />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <div className="loader"></div>
+          </div>
+        ) : departments.length === 0 ? (
+          <div className="flex justify-center items-center h-full text-gray-500">
+            No departments available in the database.
+          </div>
+        ) : (
+          <div className="scrollbar-custom" style={{ maxHeight: `calc(100vh - 240px)` }}>
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto border-collapse">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="py-2 border border-gray-200 text-sm w-1/12">Serial No.</th>
+                    <th className="py-2 border border-gray-200 text-sm w-3/12">Name</th>
+                    <th className="py-2 border border-gray-200 text-sm w-3/12">Email</th>
+                    <th className="py-2 border border-gray-200 text-sm w-1/12">Contact No</th>
+                    <th className="py-2 border border-gray-200 text-sm w-1/12">Branch</th>
+                    <th className="py-2 border border-gray-200 text-sm w-1/12">City</th>
+                    <th className="py-2 border border-gray-200 text-sm w-2/12">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {departments.map((department, index) => (
+                    <tr key={department._id} className={`border border-gray-200 ${index % 2 === 0 ? "bg-blue-100" : ""}`}>
+                      <td className="py-2 px-4 border border-gray-200 text-center w-1/12 text-sm">{index + 1}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-3/12 text-sm capitalize">{department.title}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-3/12 text-sm capitalize">{department.email}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize">{department.contact}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize">{department.branch.title}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize">{department.city.city}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-2/12 text-sm">
+                        <div className="flex justify-between gap-2">
+                          <ButtonM text={"Edit"} variant="text" onClick={() => handleEditCity(department)} />
+                          <ButtonM text={"Delete"} variant="text" onClick={() => handleDeleteCity(department)} />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,3 @@
-
-
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import {
@@ -27,8 +25,8 @@ import {
 // Sample chart data
 const chartData = [
   { date: "2024-04-01", desktop: 252, mobile: 90, webAndMobileApp: 120, flutter: 85, blockchain: 55, iot: 70, cybersecurity: 30 },
-  { date: "2024-04-01", desktop: 222, mobile: 150, webAndMobileApp: 180, flutter: 95, blockchain: 70, iot: 85, cybersecurity: 35 },
-  { date: "2024-04-01", desktop: 762, mobile: 150, webAndMobileApp: 330, flutter: 130, blockchain: 110, iot: 120, cybersecurity: 50 },
+  { date: "2024-10-01", desktop: 222, mobile: 150, webAndMobileApp: 180, flutter: 95, blockchain: 70, iot: 85, cybersecurity: 35 },
+  { date: "2023-04-01", desktop: 762, mobile: 150, webAndMobileApp: 330, flutter: 130, blockchain: 110, iot: 120, cybersecurity: 50 },
   // More data entries here...
   { date: "2024-06-30", desktop: 146, mobile: 400, webAndMobileApp: 400, flutter: 160, blockchain: 95, iot: 130, cybersecurity: 75 },
   { date: "2024-06-30", desktop: 346, mobile: 400, webAndMobileApp: 410, flutter: 150, blockchain: 90, iot: 120, cybersecurity: 65 },
@@ -41,16 +39,28 @@ const chartConfig = {
     label: "Visitors",
   },
   desktop: {
-    label: "Desktop",
+    label: "Welfare",
     color: "hsl(var(--color-1))",
   },
   mobile: {
-    label: "Mobile",
+    label: "Medical",
     color: "hsl(var(--color-2))",
   },
   PC: {
-    label: "Mobile",
-    color: "hsl(var(--color-2))",
+    label: "sadqa",
+    color: "hsl(var(--color-3))",
+  },
+  PC: {
+    label: "water",
+    color: "hsl(var(--color-4))",
+  },
+  PC: {
+    label: "food",
+    color: "hsl(var(--color-5))",
+  },
+  PC: {
+    label: "education",
+    color: "hsl(var(--color-6))",
   },
 };
 

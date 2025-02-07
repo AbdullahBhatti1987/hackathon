@@ -1,12 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AppRoutes } from "../constant/constant";
-import axios from "axios";
+import React, {useEffect, useState } from "react";
 import Modal from "react-modal";
-import Heading1 from "@/components/Heading1";
 import ModalHeading from "@/components/ModalHeading";
 import ButtonM from "@/components/ButtonM";
 import Filter from "@/components/Filter";
-import CustomLoader from "@/components/Loader";
 import InputWithLabel from "@/components/InputWithLabel";
 import SelectWithLabel from "@/components/SelectWithLabel";
 import { fetchCities } from "@/api/City";
@@ -36,7 +32,6 @@ const Branch = () => {
       setIsLoading(false);
     }, 1000);
   }, []);
-
 
   const resetForm = () => {
     setBranchDetails({
@@ -206,20 +201,20 @@ const Branch = () => {
               <table className="min-w-full table-auto border-collapse">
                 <thead className="bg-gray-100">
                   <tr>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">Serial No.</th>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">Name</th>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">Address</th>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">City</th>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">Contact</th>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">Email</th>
-                    <th className=" py-2 border border-gray-200 truncate text-sm">Actions</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-1/12">Serial No.</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-2/12">Name</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-3/12">Address</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-1/12">City</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-1/12">Contact</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-2/12">Email</th>
+                    <th className=" py-2 border border-gray-200 truncate text-sm w-2/12">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {branches?.map((branch, index) => (
                     <tr key={branch?._id} className={`border border-gray-200 ${index % 2 === 0 ? "bg-blue-100" : ""}`}>
                       <td className="py-2 px-4 border border-gray-200 text-center w-1/12 text-sm">{index + 1}</td>
-                      <td className="py-2 px-4 border border-gray-200 w-1/12 truncate capitalize text-sm">
+                      <td className="py-2 px-4 border border-gray-200 w-2/12 truncate capitalize text-sm">
                         {branch.title}
                       </td>
                       <td

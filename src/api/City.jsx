@@ -5,7 +5,8 @@ import axios from "axios";
 export const fetchCities = async (setData) => {
   try {
     const response = await axios.get(AppRoutes.getAllCities);
-    setData(response.data?.data);
+    console.log("cities Response=>", response?.data?.data?.cities)
+    setData(response.data?.data?.cities);
   } catch (error) {
     console.error("Error fetching Cities:", error);
   }

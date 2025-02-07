@@ -4,7 +4,8 @@ import axios from "axios";
 export const fetchEmployees = async (setData) => {
   try {
     const response = await axios.get(AppRoutes.getAllEmployees);
-    setData(response.data?.data);
+    console.log("Response=>", response)
+    setData(response.data?.data.employees);
   } catch (error) {
     console.error("Error fetching employees:", error);
   }

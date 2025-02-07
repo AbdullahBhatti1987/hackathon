@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchBranches = async (setData) => {
   try {
     const response = await axios.get(AppRoutes.getAllBranches);
-    setData(response.data?.data);
+    setData(response.data?.data.branches);
   } catch (error) {
     console.error("Error fetching Branches:", error);
   }

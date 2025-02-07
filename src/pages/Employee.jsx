@@ -17,12 +17,12 @@ import { fetchDepartments } from "@/api/Department";
 
 const Employee = () => {
   const [error, setError] = useState(false);
-  const [editingIndex , setEditingIndex ] = useState("");
+  const [editingIndex, setEditingIndex] = useState("");
   const [employees, setEmployees] = useState([]);
   const [cities, setCities] = useState([]);
   const [branches, setBranches] = useState([]);
   const [departments, setDepartments] = useState([]);
-  const [isModalOpen , setIsModalOpen ] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
@@ -39,7 +39,6 @@ const Employee = () => {
     gender: "",
     dob: "",
     address: "",
-    // imageUrl: "",
   });
 
   const resetForm = () => {
@@ -66,11 +65,10 @@ const Employee = () => {
     }
   };
 
-
   const handleInputChange = (e) => {
-    const isEvent = e && e.target; // Check if it's a standard event
-    const name = isEvent ? e.target.name : e.name; // Support custom event structure
-    const value = isEvent ? e.target.value : e.value; // Support custom event structure
+    const isEvent = e && e.target;
+    const name = isEvent ? e.target.name : e.name;
+    const value = isEvent ? e.target.value : e.value;
 
     if (name) {
       setemployeeDetails((prevDetails) => ({
@@ -214,17 +212,17 @@ const Employee = () => {
   };
 
   useEffect(() => {
-    fetchEmployees(setEmployees);
-    fetchCities(setCities);
-    fetchBranches(setBranches);
-    fetchDepartments(setDepartments);
+    try {
+      fetchEmployees(setEmployees);
+      fetchCities(setCities);
+      fetchBranches(setBranches);
+      fetchDepartments(setDepartments);
+    } catch (error) {
+      console.log("error fatching data");
+    }
   }, []);
 
-  const handleDownload = () => {
-
-  }
-
-
+  const handleDownload = () => {};
 
   return (
     <div>
@@ -382,7 +380,6 @@ const Employee = () => {
             />
           </div>
 
-
           <div className="flex items-start space-x-6">
             {/* Upload Section */}
             <div className="flex flex-col items-start">
@@ -466,34 +463,115 @@ const Employee = () => {
         </form>
       </Modal>
 
-      {/* List of added employee members */}
-      <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">employee List</h2>
-        {isLoading ? <div className="loader"></div> :
-        employees?.length === 0 ? (
-          <p className="text-gray-500">No employee added yet.</p>
+      <div className="mt-8 flex flex-col h-[calc(100vh-220px)]">
+        <div className="flex justify-end items-center mb-4">
+          <ButtonM
+            text={"Add Employee"}
+            onClick={() => {
+              setEditingIndex(null);
+              resetForm();
+              setIsModalOpen(true);
+            }}
+            className={"w-[12%]"}
+          />
+        </div>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <div className="loader"></div> {/* Replace with your actual loader */}
+          </div>
+        ) : employees.length === 0 ? (
+          <div className="flex justify-center items-center h-full text-gray-500">
+            No departments available in the database.
+          </div>
         ) : (
-          <ul className="space-y-2 h-full overflow-y-auto">
-            {employees?.map((employee, index) => (
-              <li
-                key={index}
-                className={`p-4 border border-gray-200 rounded-lg shadow-md transition-transform transform hover:shadow-xl hover:border-gray-400 ${
-                  index % 2 === 0 ? "bg-gray-100" : ""
-                }`}
-              >
-                <div className={`grid grid-cols-3 gap-4 items-center`}>
-                  <div className="text-gray-900 font-semibold">{employee.name}</div>
-                  <div className="text-gray-800">{employee.email}</div>
-                  <div className="text-gray-600">{employee.role}</div>
-                  <div className="flex gap-4 text-gray-700">
-                    <p className="text-sm">
-                      Access: <span className="font-medium">{employee.hasAccess ? "Granted" : "Denied"}</span>
-                    </p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="scrollbar-custom" style={{ maxHeight: `calc(100vh - 140px)` }}>
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto border-collapse">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="py-2 border border-gray-200 text-sm text-nowrap truncate">Serial No.</th>
+                    <th className="py-2 border border-gray-200 text-sm">Emp No.</th>
+                    <th className="py-2 border border-gray-200 text-sm">Name</th>
+                    <th className="py-2 border border-gray-200 text-sm">Father Name</th>
+                    <th className="py-2 border border-gray-200 text-sm">Email</th>
+                    <th className="py-2 border border-gray-200 text-sm">Contact No</th>
+                    <th className="py-2 border border-gray-200 text-sm">CNIC</th>
+                    <th className="py-2 border border-gray-200 text-sm">DOB</th>
+                    <th className="py-2 border border-gray-200 text-sm">Gender</th>
+                    <th className="py-2 border border-gray-200 text-sm">Address</th>
+                    <th className="py-2 border border-gray-200 text-sm">Department</th>
+                    <th className="py-2 border border-gray-200 text-sm">Branch</th>
+                    <th className="py-2 border border-gray-200 text-sm">City</th>
+                    <th className="py-2 border border-gray-200 text-sm">Role</th>
+                    <th className="py-2 border border-gray-200 text-sm">Image</th>
+                    <th className="py-2 border border-gray-200 text-sm">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {employees.map((employee, index) => (
+                    <tr key={employee._id} className={`border border-gray-200 ${index % 2 === 0 ? "bg-blue-100" : ""}`}>
+                      <td className="py-2 px-4 border border-gray-200 text-center w-1/12 text-sm text-nowrap truncate">
+                        {index + 1}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.empNo}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.fullName}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.fatherName}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.email}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.mobileNo}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.cnic}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {(() => {
+                          const [year, month, day] = employee.dob.split("T")[0].split("-");
+                          return `${day}-${month}-${year}`;
+                        })()}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.gender}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.address}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.department.title}
+                      </td>
+
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.branch.title}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-1/12 text-sm capitalize text-nowrap truncate">
+                        {employee.city.city}
+                      </td>
+
+                      <td className="py-2 px-4 border border-gray-200 w-4/12 text-sm capitalize text-nowrap truncate">
+                        {employee.role}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-4/12 text-sm capitalize">
+                        {employee?.imageUrl}
+                      </td>
+                      <td className="py-2 px-4 border border-gray-200 w-2/12 text-sm">
+                        <div className="flex justify-between gap-2">
+                          <ButtonM text={"Edit"} variant="text" onClick={() => handleEditCity(employee)} />
+                          <ButtonM text={"Delete"} variant="text" onClick={() => handleDeleteCity(employee)} />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         )}
       </div>
     </div>

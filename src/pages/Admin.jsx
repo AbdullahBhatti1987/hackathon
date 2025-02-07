@@ -16,13 +16,8 @@ function Admin() {
   const handleRoutes = (val) => {
     console.log("Selected Value:", val);
     setValue(val);
-    navigate(`/${val.toLowerCase()}`);
+    navigate(`/admin/${val.toLowerCase()}`);
   };
-
-
-
-
-  
 
   return (
     <div className="w-full h-full flex gap-4 flex-col overflow-auto scrollbar-custom ">

@@ -150,7 +150,7 @@ const City = () => {
 
         {isLoading ? (
           <div className="flex justify-center items-center h-full">
-            <div className="loader"></div> {/* Replace with your actual loader */}
+            <div className="loader"></div>
           </div>
         ) : cities.length === 0 ? (
           <div className="flex justify-center items-center h-full text-gray-500">
@@ -162,18 +162,18 @@ const City = () => {
               <table className="min-w-full table-auto border-collapse">
                 <thead className="bg-gray-100">
                   <tr>
-                    <th className="py-2 border border-gray-200 text-sm">Serial No.</th>
-                    <th className="py-2 border border-gray-200 text-sm">Name</th>
-                    <th className="py-2 border border-gray-200 text-sm">Country</th>
-                    <th className="py-2 border border-gray-200 text-sm">Actions</th>
+                    <th className="py-2 border border-gray-200 text-sm w-1/12">Serial No.</th>
+                    <th className="py-2 border border-gray-200 text-sm w-4/12">Name</th>
+                    <th className="py-2 border border-gray-200 text-sm w-5/12">Country</th>
+                    <th className="py-2 border border-gray-200 text-sm w-2/12">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {cities.map((city, index) => (
                     <tr key={city._id} className={`border border-gray-200 ${index % 2 === 0 ? "bg-blue-100" : ""}`}>
-                      <td className="py-2 px-4 border border-gray-200 text-center w-2/12 text-sm">{index + 1}</td>
+                      <td className="py-2 px-4 border border-gray-200 text-center w-1/12 text-sm">{index + 1}</td>
                       <td className="py-2 px-4 border border-gray-200 w-4/12 text-sm capitalize">{city.city}</td>
-                      <td className="py-2 px-4 border border-gray-200 w-4/12 text-sm capitalize">{city.country}</td>
+                      <td className="py-2 px-4 border border-gray-200 w-5/12 text-sm capitalize">{city.country}</td>
                       <td className="py-2 px-4 border border-gray-200 w-2/12 text-sm">
                         <div className="flex justify-between gap-2">
                           <ButtonM text={"Edit"} variant="text" onClick={() => handleEditCity(city)} />

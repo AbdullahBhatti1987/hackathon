@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetchDepartments = async (setData) => {
   try {
     const response = await axios.get(AppRoutes.getAllDepartments);
-    setData(response.data?.data);
+    setData(response.data?.data.departments);
   } catch (error) {
     console.error("Error fetching departments:", error);
   }

@@ -1,4 +1,9 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 :root{
   --bg-dark-full : #1e1e1e;
@@ -235,9 +240,3 @@ button:hover {
 @keyframes l15 { 
   100% { transform: rotate(1turn) }
 }
-
-
-
-
-
-
